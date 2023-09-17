@@ -1,20 +1,21 @@
 from telegram import Update
 from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes
-from pyee import EventEmitter
 from main_function import run, calc_run, replace_old
+from PyQt5.QtCore import QThread, QObject, pyqtSignal as Signal, pyqtSlot as Slot
+from PyQt5.QtWidgets import QApplication
 import main_function
 import threading
+import asyncio
 import logging
 import time
-import asyncio
+import sys
 import os
 
 
+
 if __name__ == "__main__":
-    emitter = EventEmitter()
     # token = "6466630496:AAH1dIIb-pCCYYipirhK_b93RCgFcrLhhCI"
     token = os.environ.get("my_token")
-
     logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
     # Loglama için bir logger oluşturun
     logger = logging.getLogger(__name__)
@@ -74,13 +75,14 @@ if __name__ == "__main__":
             time.sleep(62)
             await update.message.reply_text("Hesablama davam edir...")
         time.sleep(5)
-        bitis_zamani = time.time()
-        gecen_sure = bitis_zamani - baslangic_zamani
-        await update.message.reply_text(f"Hesablama bitdi. Hesabalama {gecen_sure} tamamlandı")
+      
         time.sleep(1)
         logger.info("Uzun süren işlem tamamlandı")
         await update.message.reply_document(document=open("70_new.txt", "rb"))
         await update.message.reply_document(document=open("77_new.txt", "rb"))
+        bitis_zamani = time.time()
+        gecen_sure = bitis_zamani - baslangic_zamani
+        await update.message.reply_text(f"Hesablama bitdi. Hesabalama {gecen_sure} tamamlandı")
 
     app = ApplicationBuilder().token(token=token).build()
 

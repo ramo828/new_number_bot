@@ -2,7 +2,6 @@ from library import Work, Ehtimal
 from tqdm import tqdm
 from os import system
 import concurrent.futures
-from pyee import EventEmitter
 import os
 
 work = Work()
@@ -11,7 +10,6 @@ narNumber = []
 defaultPrefix = ""
 new77 = []
 new70 = []
-
 ehtimal.olasiliklari_hesapla()
 data_counter = 0
 status = False
