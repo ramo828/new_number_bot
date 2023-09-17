@@ -2,6 +2,7 @@ from library import Work, Ehtimal
 from tqdm import tqdm
 from os import system
 import concurrent.futures
+import time
 import os
 
 work = Work()
@@ -14,7 +15,8 @@ ehtimal.olasiliklari_hesapla()
 data_counter = 0
 status = False
 status_calculate = False
-
+gecen_sure = ""
+gecen_sure1 = ""
 
 def load_count(count:int):
     global data_counter
@@ -39,7 +41,9 @@ def replace_old():
 
 
 def load(prefix = "70"):
+    global gecen_sure
     load_status(True)
+    baslangic_zamani = time.time()
     file_name = ""
     pref = ""
     if(prefix == "70"):
@@ -59,6 +63,8 @@ def load(prefix = "70"):
         load_count(calc)
     print(f"Tapılan ümumi nömrə sayı: {str(nomre_sayi)[:-1]}\n")
     load_status(False)
+    bitis_zamani = time.time()
+    gecen_sure = bitis_zamani - baslangic_zamani
     return nomre_sayi  # Sonucu geri döndür
 
 def task(id):
@@ -100,16 +106,12 @@ def calc_run():
 
 
 def calculate(prefix="70", part = 0):
-
+    global gecen_sure1
+    global new70, new77
     new_save_070 = open("70_new.txt","w")
     new_save_077 = open("77_new.txt","w")
-
-    global new70, new77
     calc_status(True)
-
-    # if os.path.exists("70_new.txt") and os.path.exists("77_new.txt"):
-    #     os.remove("70_new.txt")
-    #     os.remove("77_new.txt")
+    baslangic_zamani = time.time()
 
 
     if prefix == "70":
@@ -123,14 +125,15 @@ def calculate(prefix="70", part = 0):
     new_list = new.readlines()
     old_list = old.readlines()
     if(prefix == "70"):
-        new70 = work.find_differences(new_list, old_list)
+        new70 = work.find_differences(new_list, old_list, prefix)
     else:
-        new77 = work.find_differences(new_list, old_list)
+        new77 = work.find_differences(new_list, old_list, prefix)
     for y0, y77 in zip(new70,new77):
         new_save_070.write(y0)
         new_save_077.write(y77)
         print(f"Yeni 070: {y0}")
         print(f"Yeni 077: {y77}")
-
+    bitis_zamani = time.time()
+    gecen_sure1 = bitis_zamani - baslangic_zamani
     calc_status(False)
 

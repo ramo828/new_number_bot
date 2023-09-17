@@ -105,11 +105,11 @@ class Work:
         self.eht = Ehtimal()
         self.nar = Nar()
 
-    def find_differences(self, new, old):
+    def find_differences(self, new, old, prefix):
         # new'de bulunan ancak old'de bulunmayan öğeleri bulun
         differences = []
 
-        for item in tqdm(new, desc="Checking Differences"):
+        for item in tqdm(new, desc=f"Checking Differences {prefix}"):
             if item not in old:
                 differences.append(item)
         
