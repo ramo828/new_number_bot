@@ -1,8 +1,6 @@
 from telegram import Update
 from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes
 from main_function import run, calc_run, replace_old
-from PyQt5.QtCore import QThread, QObject, pyqtSignal as Signal, pyqtSlot as Slot
-from PyQt5.QtWidgets import QApplication
 import main_function
 import threading
 import asyncio
