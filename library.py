@@ -100,7 +100,7 @@ class Nar:
         'Connection':'keep-alive'}
         return headers
     
-class Work:
+class Worker:
     def __init__(self):
         self.eht = Ehtimal()
         self.nar = Nar()
