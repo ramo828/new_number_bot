@@ -1,4 +1,4 @@
 pyinstaller
 tqdm
 requests
-python-telegram-bot
+telepot
